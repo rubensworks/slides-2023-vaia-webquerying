@@ -413,8 +413,215 @@
       <ul>
         <li><a href="#index-fundamentals">Fundamentals of Query Processing</a></li>
 		<li class="current"><a href="#index-multiplesources">Querying over Multiple Sources</a></li>
+        <li>
+            <ul>
+                <li class="current"><a href="#index-multiplesources">The case for decentralization</a></li>
+                <li><a href="#index-multiplesources-federation">Federated Querying</a></li>
+                <li><a href="#index-multiplesources-linktraversal">Link Traversal</a></li>
+            </ul>
+        </li>
         <li><a href="#index-practise">Querying in Practise</a></li>
       </ul>
+    </section>
+    
+    <section id="query-centralized" class="slide" inlist="" rel="schema:hasPart" resource="#query-centralized">
+        <h2 property="schema:name" style="margin-top: 40px">Common solution to Web querying: Centralization</h2>
+        <img src="img/sparql-centralized.svg" width="35%" style="float: right" />
+		<ul>
+			<li>
+				<h3>First index all data you want to query over</h3>
+				<span class="indent">Querying from a single location is easy</span>
+			</li>
+			<li>
+				<h3>Dataset is collocated with query engine</h3>
+				<span class="indent">All data is assumed to be known beforehand</span>
+			</li>
+		</ul>
+    </section>
+    
+    <section id="query-centralized-problems" class="slide" inlist="" rel="schema:hasPart" resource="#query-centralized-problems">
+        <h2 property="schema:name" style="margin-top: 40px">Centralization not always possible</h2>
+        <img src="img/solid-pods.svg" width="35%" style="float: right" />
+		<ul>
+			<li>
+				<h3>Private data (Solid)</h3>
+				<span class="indent">Technical and legal reasons (GDPR)</span>
+			</li>
+			<li>
+				<h3>Evolving data</h3>
+				<span class="indent">Requires continuous re-indexing</span>
+			</li>
+			<li>
+				<h3>Web scale data</h3>
+				<span class="indent">Indexing the whole Web is infeasible for non-tech-giants</span>
+			</li>
+		</ul>
+    </section>
+    
+    <section id="query-decentralized" class="slide" inlist="" rel="schema:hasPart" resource="#sparql-decentralized">
+        <h2 property="schema:name">How to query over <em>decentralized</em> data?</h2>
+        <center><img src="img/sparql-decentralized.svg" width="75%" /></center>
+		<ul>
+			<li>
+				<h3>Data and query engine are <em>not</em> collocated</h3>
+				<span class="indent">Query engine runs on a separate machine</span>
+			</li>
+			<li>
+				<h3>Not just one datasets</h3>
+				<span class="indent">Data is spread over the Web across multiple sources</span>
+			</li>
+		</ul>
+    </section>
+    
+    <section id="query-decentralized-overview" class="slide" inlist="" rel="schema:hasPart" resource="#sparql-decentralized-overview">
+        <h2 property="schema:name">Approaches for querying over decentralized data</h2>
+		<ul>
+			<li>
+				<h3>Federated Query Processing</h3>
+				<span class="indent">Distributing query execution across multiple query APIs</span>
+			</li>
+			<li>
+				<h3>Link Traversal Query Processing</h3>
+				<span class="indent">Local query execution over sources that are discovered by following links</span>
+			</li>
+		</ul>
+    </section>
+    
+    <section id="index-multiplesources-federation" class="slide index" inlist="" rel="schema:hasPart" resource="#index-multiplesources-federation">
+      <ul>
+        <li><a href="#index-fundamentals">Fundamentals of Query Processing</a></li>
+		<li class="current"><a href="#index-multiplesources">Querying over Multiple Sources</a></li>
+        <li>
+            <ul>
+                <li><a href="#index-multiplesources">The case for decentralization</a></li>
+                <li class="current"><a href="#index-multiplesources-federation">Federated Querying</a></li>
+                <li><a href="#index-multiplesources-linktraversal">Link Traversal</a></li>
+            </ul>
+        </li>
+        <li><a href="#index-practise">Querying in Practise</a></li>
+      </ul>
+    </section>
+    
+    <section id="index-multiplesources-linktraversal" class="slide index" inlist="" rel="schema:hasPart" resource="#index-multiplesources-linktraversal">
+      <ul>
+        <li><a href="#index-fundamentals">Fundamentals of Query Processing</a></li>
+		<li class="current"><a href="#index-multiplesources">Querying over Multiple Sources</a></li>
+        <li>
+            <ul>
+                <li><a href="#index-multiplesources">The case for decentralization</a></li>
+                <li><a href="#index-multiplesources-federation">Federated Querying</a></li>
+                <li class="current"><a href="#index-multiplesources-linktraversal">Link Traversal</a></li>
+            </ul>
+        </li>
+        <li><a href="#index-practise">Querying in Practise</a></li>
+      </ul>
+    </section>
+    
+    <section id="query-decentralized-links" class="slide" inlist="" rel="schema:hasPart" resource="#sparql-decentralized-links">
+        <h2 property="schema:name">Exploit interlinking of documents</h2>
+        <center><img src="img/sparql-decentralized-links.svg" width="75%" /></center>
+		<ul>
+			<li>
+				<h3>Linked Data documents are linked to each other</h3>
+				<span class="indent">Following the Linked Data principles</span>
+			</li>
+			<li>
+				<h3>Query engine can <em>follow</em> links</h3>
+				<span class="indent">Start from one document, and discover new documents on the fly</span>
+			</li>
+		</ul>
+    </section>
+    
+    <section id="link-traversal-concept" class="slide" inlist="" rel="schema:hasPart" resource="#link-traversal-concept" style="text-align: center">
+        <h2 property="schema:name" style="margin-top: 150px">Link Traversal Query Processing</h2>
+        <h3>Querying by following links between documents</h2>
+    </section>
+    
+    <section id="link-traversal-example-query" class="slide" inlist="" rel="schema:hasPart" resource="#link-traversal-example-query">
+      <h2 property="schema:name">Example: Find Alice's contact names</h2>
+        <img src="img/pods.svg" width="35%" style="float: right" />
+        <pre>SELECT ?name WHERE {
+    &lt;https://alice.pods.org/profile#me&gt;
+        foaf:knows ?person.
+    ?person foaf:name ?name.
+}</pre>
+        <h3>Query process:</h3>
+		<ol>
+			<li>Start from Alice's profile</li>
+            <li>Follow links to profiles of Bob and Carol</li>
+            <li>Query over union of all profiles</li>
+            <li>Find query results: <code>[ { "name": "Bob" }, { "name": "Carol" } ]</code></li>
+		</ol>
+    </section>
+    
+    <section id="link-traversal-process" class="slide" inlist="" rel="schema:hasPart" resource="#link-traversal-process">
+        <h2 property="schema:name">The Link Traversal Query Process</h2>
+        <em><strong>Link queue</strong>: stores links to documents that need to be fetched</em>
+		<ul>
+			<li>
+                <h3>1. Initialize link queue with <em>seed URLs</em></h3>
+                <span class="indent">Seed URLs can be user-defined, or derived from query</span>
+			</li>
+			<li>
+                <h3>2. Iterate and append link queue</h3>
+                <span class="indent">Iteratively pop head off queue, and follow link to document</span><br /><br />
+                <span class="indent">Add all URLs in document to link queue</span>
+			</li>
+			<li>
+                <h3>3. Execute query</h3>
+                <span class="indent">Over union of all discovered RDF triples</span>
+			</li>
+		</ul>
+    </section>
+    
+    <section id="link-traversal-difficulties" class="slide" inlist="" rel="schema:hasPart" resource="#link-traversal-difficulties">
+        <h2 property="schema:name">Difficulties with Link Traversal</h2>
+        <em>But solutions exist!</em>
+		<ul>
+			<li>
+                <h3>Link queue rarely becomes empty</h3>
+                <span class="indent">It grows in size due to massive size of the Web</span><br /><br />
+                <span class="indent">Discovery and Query Processing must be done in parallel</span>
+			</li>
+			<li>
+                <h3>Too many links are followed</h3>
+                <span class="indent">Link filtering strategies are required</span>
+			</li>
+			<li>
+                <h3>Traditional query planning algorithms don't work</h3>
+                <span class="indent">Heuristics or adaptive query planning techniques are needed</span>
+			</li>
+		</ul>
+    </section>
+    
+    <section id="link-traversal-problems" class="slide" inlist="" rel="schema:hasPart" resource="#link-traversal-problems">
+        <h2 property="schema:name">Open problems with Link Traversal</h2>
+        <em>No good solutions yet</em>
+		<ul>
+			<li>
+                <h3>Slow query execution for complex queries</h3>
+                <span class="indent">Large number of links and lack of indexing</span>
+			</li>
+			<li>
+                <h3>Query termination for some queries</h3>
+                <span class="indent">Virtually infinite number of links</span>
+			</li>
+			<li>
+                <h3>Security issues in uncontrolled environments</h3>
+                <span class="indent">Possibility of malicious data publishers</span>
+			</li>
+		</ul>
+    </section>
+    
+    <section id="link-traversal-and-federation" class="slide" inlist="" rel="schema:hasPart" resource="#link-traversal-and-federation">
+        <h2 property="schema:name" style="font-size: 1.8em">The future of querying over decentralized data</h2>
+        <em>(My personal opinion)</em>
+		<ul>
+			<li>
+                <h3>Neither Link Traversal nor Federated Querying will be sufficient</h3>
+                <span class="indent">A combination of both will be needed</span>
+			</li>
+		</ul>
     </section>
     
     <section id="index-practise" class="slide index" inlist="" rel="schema:hasPart" resource="#index-practise">
