@@ -1,4 +1,4 @@
-# Slides for VAIA course Linked Data %VENUE_NAME% Solid on Web Querying
+# Slides for VAIA course Linked Data & Solid on Web Querying
 [![Build Status](https://github.com/rubensworks/slides-2023-vaia-webquerying/workflows/Build%20and%20Deploy/badge.svg)](https://rubensworks.github.io/slides-2023-vaia-webquerying/)
 
 **Live version: https://rubensworks.github.io/slides-2023-vaia-webquerying/**
