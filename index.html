@@ -502,6 +502,92 @@
       </ul>
     </section>
     
+    <section id="federated-overview" class="slide" inlist="" rel="schema:hasPart" resource="#federated-overview">
+        <h2 property="schema:name">Client distributes query over query APIs</h2>
+        <center><img src="img/sparql-federated.svg" width="75%" /></center>
+		<ul>
+			<li>
+				<h3>Clients do limited effort</h3>
+				<span class="indent">Split up the query, distribute it (source selection), and combine results</span>
+			</li>
+			<li>
+				<h3>Servers perform most of the effort</h3>
+				<span class="indent">They actually execute the queries, over potentially huge datasets</span>
+			</li>
+		</ul>
+    </section>
+    
+    <section id="federated-sparql" class="slide" inlist="" rel="schema:hasPart" resource="#federated-sparql">
+        <h2 property="schema:name">Federation over SPARQL endpoints</h2>
+		<ul>
+			<li>
+				<h3>Servers are SPARQL endpoints (most common)</h3>
+				<span class="indent">They accept any valid SPARQL query</span>
+			</li>
+			<li>
+				<h3>Client-side source selection</h3>
+				<span class="indent">Rewrite query in terms of SERVICE clauses</span>
+			</li>
+		</ul>
+        <div>
+        <pre style="font-size: 0.7em; float: left; margin-right: 15px">SELECT ?drug ?title WHERE {
+  ?drug db:drugCategory dbc:micronutrient.
+  ?drug db:casRegistryNumber ?id.
+  ?keggDrug rdf:type kegg :Drug.
+  ?keggDrug bio2rdf:xRef ?id.
+  ?keggDrug purl:title ?title.
+}
+
+
+</pre>
+        <pre style="font-size: 0.7em">SELECT ?drug ?title WHERE {
+  SERVICE &lt;http://example.com/drb&gt; {
+    ?drug db:drugCategory dbc:micronutrient.
+    ?drug db:casRegistryNumber ?id.
+  }
+  SERVICE &lt;http://example.com/kegg&gt; {
+    ?keggDrug rdf:type kegg :Drug.
+    ?keggDrug bio2rdf:xRef ?id.
+    ?keggDrug purl:title ?title.
+  }
+}</pre>
+    </div>
+    </section>
+    
+    <section id="federated-heterogeneous" class="slide" inlist="" rel="schema:hasPart" resource="#federated-heterogeneous">
+        <h2 property="schema:name">Federation over heterogeneous sources</h2>
+		<ul>
+			<li>
+				<h3>Servers are not only SPARQL endpoints</h3>
+				<span class="indent">Other types of Linked Data Fragments: TPF, WiseKG, brTPF, ...</span><br \>
+                <span class="indent">Different levels of server expressivity</span>
+			</li>
+			<li>
+				<h3>Clients may have to take up more effort</h3>
+				<span class="indent">Executing parts of queries client-side</span>
+			</li>
+			<li>
+				<h3>Trade-off between server and client effort</h3>
+				<span class="indent">Low-cost publishing and preventing server availability issues</span>
+			</li>
+		</ul>
+    </section>
+    
+    <section id="federated-limitations" class="slide" inlist="" rel="schema:hasPart" resource="#federated-limitations">
+        <h2 property="schema:name">Limitations of federated querying</h2>
+		<ul>
+			<li>
+				<h3>All federation members must be known before execution starts</h3>
+				<span class="indent">Source selection distributes query across list of sources</span><br \>
+                <span class="indent">No discovery of <em>new</em> sources</span>
+			</li>
+			<li>
+				<h3>Limited scalability in terms of number of endpoints</h3>
+				<span class="indent">Current federation techniques scale to the order of 10 sources</span>
+			</li>
+		</ul>
+    </section>
+    
     <section id="index-multiplesources-linktraversal" class="slide index" inlist="" rel="schema:hasPart" resource="#index-multiplesources-linktraversal">
       <ul>
         <li><a href="#index-fundamentals">Fundamentals of Query Processing</a></li>
@@ -632,6 +718,65 @@
       </ul>
     </section>
     
+    <section id="comunica" class="slide" inlist="" rel="schema:hasPart" resource="#comunica">
+        <h2 property="schema:name">The following will make use of Comunica</h2>
+        <center><img src="img/comunica_white_on_red.svg" width="20%" style="float: right" /></center>
+		<ul>
+			<li>
+				<h3>Flexible and Modular Meta-Query Engine</h3>
+				<span class="indent">Building blocks to build engine with specific functionality</span><br \>
+                <span class="indent">Presets like Comunica SPARQL, Comunica SPARQL Solid</span>
+			</li>
+			<li>
+				<h3>Open-source</h3>
+				<span class="indent">Available under the MIT license</span>
+			</li>
+			<li>
+				<h3>Implemented in TypeScript</h3>
+				<span class="indent">Can be used in any JavaScript application or from the command line</span>
+			</li>
+		</ul>
+    </section>
+    
+    <section id="comunica-app" class="slide" inlist="" rel="schema:hasPart" resource="#comunica-app">
+        <h2 property="schema:name">💻 Using Comunica in a JS app</h2>
+		<ul>
+			<li>
+				<h3>Querying from a single source (memory or remote)</h3>
+				<span class="indent">Using <code>@comunica/query-sparql</code></span>
+			</li>
+			<li>
+				<h3>Federated querying from multiple sources</h3>
+				<span class="indent">Using <code>@comunica/query-sparql</code></span>
+			</li>
+			<li>
+				<h3>Link traversal querying over Solid pods</h3>
+				<span class="indent">Using <code>@comunica/query-sparql-link-traversal-solid</code></span>
+			</li>
+            Demo code: <a href="https://github.com/rubensworks/vaia-webquerying-intro-code">https://github.com/rubensworks/vaia-webquerying-intro-code</a>
+		</ul>
+    </section>
+    
+    <section id="comunica-more" class="slide" inlist="" rel="schema:hasPart" resource="#comunica-more">
+        <h2 property="schema:name">Learn more about using Comunica</h2>
+		<ul>
+			<li>
+				<h3><a href="https://github.com/comunica/comunica/tree/master/engines/query-sparql#readme"><code>@comunica/query-sparql</code></a></h3>
+				<span class="indent">From one or multiple sources</span><br \>
+                <span class="indent"><a href="http://query.linkeddatafragments.org/">Try in your browser</a></span>
+			</li>
+			<li>
+				<h3><a href="https://github.com/comunica/comunica-feature-link-traversal/tree/master/engines/query-sparql-link-traversal-solid#readme"><code>@comunica/query-sparql-link-traversal-solid</code></a></h3>
+				<span class="indent">To traverse over one or multiple Solid pods</span><br \>
+                <span class="indent"><a href="https://comunica.github.io/comunica-feature-link-traversal-web-clients/builds/solid-default/">Try in your browser</a></span>
+			</li>
+			<li>
+				<h3>Or anything else</h3>
+				<span class="indent"><a href="https://comunica.dev/">https://comunica.dev/</a></span>
+			</li>
+		</ul>
+    </section>
+    
     <section id="index-final" class="slide index" inlist="" rel="schema:hasPart" resource="#index-final">
       <ul>
         <li><a href="#index-fundamentals">Fundamentals of Query Processing</a></li>
@@ -641,7 +786,21 @@
     </section>
 	
     <section id="conclusion" class="slide" inlist="" rel="schema:hasPart" resource="#conclusion">
-      <h2 property="schema:name" class="big">TODO: Conclusion</h2>
+      <h2 property="schema:name" class="big">Conclusions</h2>
+	  <ul>
+	  	<li>
+              <h3>SPARQL querying as abstraction layer</h3>
+              <span class="indent">Read/write Linked Data using simple declarative queries</span>
+	  	</li>
+	  	<li>
+              <h3>Querying over multiple sources</h3>
+              <span class="indent">Federated querying or link traversal</span>
+	  	</li>
+	  	<li>
+              <h3>Comunica</h3>
+              <span class="indent">Open-source TS/JS engine providing abstraction layer</span>
+	  	</li>
+	  </ul>
     </section>
 
     <footer>
